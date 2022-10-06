@@ -74,4 +74,7 @@ module.exports = {
       res.redirect("/profile");
     }
   },
+  addUser: async (req, res) => {
+    res.render('add_user');
+  }
 };
