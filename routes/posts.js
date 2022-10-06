@@ -20,4 +20,13 @@ router.delete("/deletePost/:id", postsController.deletePost);
 //delete a comment user posted
 //router.delete("/deleteComments/:postid/commentid", commentsController.deleteComments);
 
+//add user
+router.get("/add-user", postsController.addUser);
+
+
+//update user
+//router.get("/update-user", postsController.updateUser);
+
+
+
 module.exports = router;
