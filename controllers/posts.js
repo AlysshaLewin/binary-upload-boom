@@ -83,7 +83,7 @@ module.exports = {
     // Make a get request to /api/users
     axios.get('http://localhost:8500/api/users')
         .then(function(response){
-            res.render('profile', { users : response.data });
+            res.render('/', { users : response.data });
         })
         .catch(err =>{
             res.send(err);
