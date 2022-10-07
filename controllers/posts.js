@@ -1,5 +1,6 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
+const axios = require('axios');
 //const Comment = require("../models/Comment");
 
 module.exports = {
@@ -66,7 +67,27 @@ module.exports = {
       res.redirect("/profile");
     }
   },
-  addUser: async (req, res) => {
+  addUser: (req, res) => {
     res.render('add_user');
+  },
+  updateUser: (req, res) =>{
+    axios.get('http://localhost:8500/api/users', { params : { id : req.query.id }})
+        .then(function(userdata){
+            res.render("update_user", { user : userdata.data})
+        })
+        .catch(err =>{
+            res.send(err);
+        })
+  },
+  homeRoutes: (req, res) => {
+    // Make a get request to /api/users
+    axios.get('http://localhost:8500/api/users')
+        .then(function(response){
+            res.render('profile', { users : response.data });
+        })
+        .catch(err =>{
+            res.send(err);
+        })
   }
+
 };
