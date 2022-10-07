@@ -2,6 +2,7 @@ const express = require("express"); //initiates routes
 const router = express.Router();
 const upload = require("../middleware/multer"); //helps upload images
 const postsController = require("../controllers/posts"); // where to find posts controller
+const formController = require("../controllers/form"); // where to find form controller
 //const commentsController = require("../controllers/comments"); //adds comments controller
 const { ensureAuth, ensureGuest } = require("../middleware/auth"); //checks whether someone is logged in or not
 
@@ -25,8 +26,14 @@ router.get("/add-user", postsController.addUser);
 
 
 //update user
-//router.get("/update-user", postsController.updateUser);
+router.get("/update-user", postsController.updateUser);
 
+
+// API
+router.post('/api/users', formController.create);
+router.get('/api/users', formController.find);
+router.put('/api/users/:id', formController.update);
+router.delete('/api/users/:id', formController.delete);
 
 
 module.exports = router;
