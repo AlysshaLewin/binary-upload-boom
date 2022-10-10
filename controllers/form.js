@@ -13,7 +13,8 @@ exports.create = (req,res)=>{
         name : req.body.name,
         email : req.body.email,
         gender: req.body.gender,
-        status : req.body.status
+        status : req.body.status,
+        user: req.user.id
     })
 
     // save user in the database
@@ -31,36 +32,6 @@ exports.create = (req,res)=>{
 
 }
 
-// retrieve and return all users/ retrive and return a single user
-exports.find = (req, res)=>{
-
-    if(req.query.id){
-        const id = req.query.id;
-
-        Userform.findById(id)
-            .then(data =>{
-                if(!data){
-                    res.status(404).send({ message : "Not found user with id "+ id})
-                }else{
-                    res.send(data)
-                }
-            })
-            .catch(err =>{
-                res.status(500).send({ message: "Error retrieving user with id " + id})
-            })
-
-    }else{
-        Userform.find()
-            .then(user => {
-                res.send(user)
-            })
-            .catch(err => {
-                res.status(500).send({ message : err.message || "Error occurred while retriving user information" })
-            })
-    }
-
-    
-}
 
 // Update a new idetified user by user id
 exports.update = (req, res)=>{
