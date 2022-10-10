@@ -1,12 +1,12 @@
 const cloudinary = require("../middleware/cloudinary");
 const Post = require("../models/Post");
-const axios = require('axios');
+const UserForm = require("../models/Form");
 //const Comment = require("../models/Comment");
 
 module.exports = {
   getProfile: async (req, res) => {
     try {
-      const posts = await Post.find({ user: req.user.id });
+      const posts = await UserForm.find({ user: req.user.id });
       res.render("profile.ejs", { posts: posts, user: req.user });
     } catch (err) {
       console.log(err);
@@ -71,23 +71,32 @@ module.exports = {
     res.render('add_user');
   },
   updateUser: (req, res) =>{
-    axios.get('http://localhost:8500/api/users', { params : { id : req.query.id }})
-        .then(function(userdata){
-            res.render("update_user", { user : userdata.data})
-        })
-        .catch(err =>{
-            res.send(err);
-        })
-  },
-  homeRoutes: (req, res) => {
-    // Make a get request to /api/users
-    axios.get('http://localhost:8500/api/users')
-        .then(function(response){
-            res.render('/', { users : response.data });
-        })
-        .catch(err =>{
-            res.send(err);
-        })
+    if(req.query.id){
+      const id = req.query.id;
+
+      UserForm.findById(id)
+          .then(data =>{
+              if(!data){
+                  res.status(404).send({ message : "Not found user with id "+ id})
+              }else{
+                  // res.send(data)
+                  res.render("update_user", { user : data})
+                  //console.log(data, "test")
+              }
+          })
+          .catch(err =>{
+              res.status(500).send({ message: "Error retrieving user with id " + id})
+          })
+
+  }else{
+      UserForm.find()
+          .then(user => {
+              res.send(user)
+          })
+          .catch(err => {
+              res.status(500).send({ message : err.message || "Error occurred while retriving user information" })
+          })
   }
+  },
 
 };
