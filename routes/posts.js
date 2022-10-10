@@ -1,5 +1,6 @@
 const express = require("express"); //initiates routes
 const router = express.Router();
+
 const upload = require("../middleware/multer"); //helps upload images
 const postsController = require("../controllers/posts"); // where to find posts controller
 const formController = require("../controllers/form"); // where to find form controller
@@ -22,18 +23,18 @@ router.delete("/deletePost/:id", postsController.deletePost);
 //router.delete("/deleteComments/:postid/commentid", commentsController.deleteComments);
 
 //add user
-router.get("/add-user", postsController.addUser);
+//router.get("/add-user", postsController.addUser);
 
 
 //update user
-router.get("/update-user", postsController.updateUser);
+//router.get("/update-user", postsController.updateUser);
 
 
 // API
-router.post('/api/users', formController.create);
-router.get('/api/users', formController.find);
-router.put('/api/users/:id', formController.update);
-router.delete('/api/users/:id', formController.delete);
+//router.post('/api/users', formController.create);
+//router.get('/api/users', formController.find);
+//router.put('/api/users/:id', formController.update);
+//router.delete('/api/users/:id', formController.delete);
 
 
 module.exports = router;
