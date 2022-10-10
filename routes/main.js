@@ -14,17 +14,17 @@ router.post("/login", authController.postLogin);
 router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
-router.get("/add-user", ensureAuth, postsController.addUser);
+router.get("/add-user", postsController.addUser);
 router.get("/update-user", ensureAuth, postsController.updateUser);
 
 
 
 
 // API
-router.post('/api/users', formController.create);
-router.get('/api/users', formController.find);
-router.put('/api/users/:id', formController.update);
-router.delete('/api/users/:id', formController.delete);
+router.post('/api/users', ensureAuth, formController.create);
+//router.get('/api/users', ensureAuth, formController.find);
+router.put('/api/users/:id', ensureAuth, formController.update);
+router.delete('/api/users/:id', ensureAuth, formController.delete);
 
 
 module.exports = router;
