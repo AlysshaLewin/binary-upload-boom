@@ -3,17 +3,21 @@ const mongoose = require('mongoose');
 
 //forms data
 const FormSchema = new mongoose.Schema({
-    name : {
-        type : String,
+    name: {
+        type: String,
         required: true
     },
-    email : {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "users",
+    },
+    email: {
         type: String,
         required: true,
         unique: true
     },
-    gender : String,
-    status : String
+    gender: String,
+    status: String
 })
 
 const Userform = mongoose.model("Userform", FormSchema);
